@@ -1,5 +1,33 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div id="computerInfo">
+    <h2>Real-time System Resource Monitor</h2>
+    <h5 data-bind="visible: connected">Connected to message hub</h5>
+    <table class="table table-striped" border="0">
+        <tbody>
+            <tr>
+                <th>Machine</th>
+                <th>CPU %</th>
+                <th>Memory Available (Mb)</th>
+                <th>Total Memory (Mb)</th>
+                <th>Mem Available %</th>
+            </tr>
 
-<h1>Monitoring App Works!</h1>
+            <!-- ko foreach: machines -->
+            <tr data-bind="css: { highCpu: cpu() > 90 }">
+                <td data-bind="text: machineName"></td>
+                <td data-bind="text: cpu"></td>
+                <td data-bind="text: memUsage"></td>
+                <td data-bind="text: memTotal"></td>
+                <td data-bind="text: memPercent"></td>
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/app.js"></script>
+}
